@@ -29,10 +29,11 @@ class SendMail extends Action
     public function handle(ActionFields $fields, Collection $models)
     {
         $mailOptions = json_decode($fields['mail'], true);
+        $selectedTemplateId = !empty($mailOptions['selectedTemplate']) ? $mailOptions['selectedTemplate']['id'] : null;
         $models->each(function ($model) use ($mailOptions) {
             $mailable = new Send(
                 $model,
-                NovaMailTemplate::findOrFail($mailOptions['selectedTemplate']['id']),
+                NovaMailTemplate::findOrFail($selectedTemplateId),
                 $mailOptions['body'],
                 $model->{$model->getEmailField()},
                 $mailOptions['subject'],

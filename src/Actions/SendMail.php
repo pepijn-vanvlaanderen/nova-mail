@@ -30,7 +30,7 @@ class SendMail extends Action
     {
         $mailOptions = json_decode($fields['mail'], true);
         $selectedTemplateId = !empty($mailOptions['selectedTemplate']) ? $mailOptions['selectedTemplate']['id'] : null;
-        $models->each(function ($model) use ($mailOptions) {
+        $models->each(function ($model) use ($mailOptions, $selectedTemplateId) {
             $mailable = new Send(
                 $model,
                 NovaMailTemplate::findOrFail($selectedTemplateId),

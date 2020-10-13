@@ -70,6 +70,7 @@ class Send extends Mailable implements ShouldQueue
         $this->mailEvent = $mailEvent;
         $this->timestamp = now()->format('Y_m_d_His');
         $this->sendDelayInMinutes = $sendDelayInMinutes;
+        $this->onQueue('mail');
     }
 
     /**
